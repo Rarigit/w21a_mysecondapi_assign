@@ -1,0 +1,52 @@
+We can now make our own more complex APIs! Now we can take advantage of GET, POST, PATCH, DELETE requests in more detail and take advantage of things like a DB.
+
+Setup a GitHub repository and local git repository to track work being done.
+Ensure you have a proper .gitignore file setup!
+Create a DB with the following tables / columns:
+item
+id
+name
+description
+quantity
+created_at
+employee
+id
+name
+hired_at
+hourly_wage
+Make some fake data in the DB for testing purposes
+Take a DB backup into an sql file to be tracked in the GitHubrepo.
+Create a python project that achieves the following:
+Creates an API with the following endpoints that supports the given HTTP request types:
+/item
+GET
+Return all items name, description, quantity and created_at
+POST
+Given a name, description and quantity insert a new item into the DB
+PATCH
+Given an id and quantity, update an existing item in the DB to have a new quantity
+DELETE
+Given an id, delete an existing item in the DB
+/employee
+GET
+Given an id, return the employee name, hired_at and hourly_wage with that particular id
+POST
+Given a name and hourly_wage insert a new employee into the DB
+PATCH
+Given an id and hourly_wage update an existing employee to have a new hourly_wage
+DELETE
+Given an id, delete an existing employee in the DB
+Ensure you take the time to make sure the appropriate try-except blocks are in place. At minimum your code should never crash and burn even if the client does something wrong!
+Add, commit and push your code.
+Please submit the GitHub URL
+
+BONUS:
+
+Allow users to send an optional limit parameter to the GET /item endpoint that will only return up to the limit amount of items.
+For example, if the limit is sent as 3 send back only 3 items
+Modify the GET /item to now only send back the limited items based on the quantity.
+Now we would only send back the 3 items that have the highest quantity
+Change the PATCH /item request to now accept optional data for name and description. If this data is in the request, it will also update the name, description or both
+HARD: Modify the POST request for /item to either accept:
+A single item with name, description and quantity
+An array of items each with a name, description and quantity 
