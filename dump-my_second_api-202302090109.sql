@@ -28,7 +28,7 @@ CREATE TABLE `employee` (
   `hired_at` date DEFAULT NULL,
   `hourly_wage` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,12 +40,13 @@ DROP TABLE IF EXISTS `item`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `item` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(200) NOT NULL,
-  `description` varchar(250) NOT NULL,
-  `quantity` int(10) unsigned NOT NULL,
-  `created_at` date NOT NULL,
+  `name` varchar(200) DEFAULT NULL,
+  `description` varchar(250) DEFAULT NULL,
+  `quantity` int(10) unsigned DEFAULT NULL,
+  `created_at` date DEFAULT NULL,
+  `limit` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -120,9 +121,9 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'IGNORE_SPACE,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`topdev`@`%` PROCEDURE `get_item_infoall`()
+CREATE DEFINER=`topdev`@`%` PROCEDURE `get_item_infoall`(limit_input INT UNSIGNED)
 BEGIN
-	SELECT id, name, description, quantity, created_at FROM item;
+	SELECT id, name, description, quantity, created_at FROM item ORDER BY quantity DESC LIMIT limit_input;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -199,10 +200,10 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'IGNORE_SPACE,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`topdev`@`%` PROCEDURE `update_item_idquant_arg`(id_input INT UNSIGNED, quantity_input INT UNSIGNED)
+CREATE DEFINER=`topdev`@`%` PROCEDURE `update_item_idquant_arg`(id_input INT UNSIGNED, quantity_input INT UNSIGNED, name_input CHAR(200), description_input CHAR(250))
     MODIFIES SQL DATA
 BEGIN
-	UPDATE item SET quantity = quantity_input WHERE id = id_input;
+	UPDATE item SET quantity = quantity_input, name = name_input, description = description_input WHERE id = id_input;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -219,4 +220,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-08  1:03:23
+-- Dump completed on 2023-02-09  1:09:54
